@@ -1,0 +1,9 @@
+#
+# fips-dropt
+#
+---
+exports:
+    header-dirs:
+        - dropt/include
+    modules:
+        dropt: .
