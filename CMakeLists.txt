@@ -40,6 +40,7 @@ if (NOT FIPS_IMPORT)
             src/test_dropt.c
         )
         fips_deps(dropt)
+        fips_vs_disable_warnings(4477)
         if (FIPS_CLANG OR FIPS_GCC)
             set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-missing-field-initializers")
         endif()
