@@ -1,6 +1,7 @@
 # fips-dropt
-fipsified dropt lib
 
-dropt: https://github.com/code-disaster/dropt
+fipsified dropt (deliberately rudimentary options)
+
+dropt: https://github.com/jamesderlin/dropt
 
 fips: https://github.com/floooh/fips
