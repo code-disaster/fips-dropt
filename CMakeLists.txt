@@ -2,14 +2,18 @@
 # project: fips-dropt
 #
 
+option(DROPT_BUILD_CPP_WRAPPER "Build C++ wrapper" ON)
+
 if (NOT FIPS_IMPORT)
     cmake_minimum_required(VERSION 2.8)
     get_filename_component(FIPS_ROOT_DIR "../fips" ABSOLUTE)
     include("${FIPS_ROOT_DIR}/cmake/fips.cmake")
     fips_setup(PROJECT fips-dropt)
-endif()
 
-option(DROPT_BUILD_CPP_WRAPPER "Build C++ wrapper" ON)
+    if (DROPT_BUILD_CPP_WRAPPER)
+        set(FIPS_EXCEPTIONS ON CACHE BOOL "Enable C++ exceptions" FORCE)
+    endif()
+endif()
 
 fips_begin_lib(dropt)
     include_directories(dropt/include)
