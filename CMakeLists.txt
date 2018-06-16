@@ -1,18 +1,13 @@
 #
 # project: fips-dropt
 #
-
-option(DROPT_BUILD_CPP_WRAPPER "Build C++ wrapper" ON)
+option(DROPT_BUILD_CPP_WRAPPER "Build C++ wrapper" OFF)
 
 if (NOT FIPS_IMPORT)
     cmake_minimum_required(VERSION 2.8)
     get_filename_component(FIPS_ROOT_DIR "../fips" ABSOLUTE)
     include("${FIPS_ROOT_DIR}/cmake/fips.cmake")
     fips_setup(PROJECT fips-dropt)
-
-    if (DROPT_BUILD_CPP_WRAPPER)
-        set(FIPS_EXCEPTIONS ON CACHE BOOL "Enable C++ exceptions" FORCE)
-    endif()
 endif()
 
 fips_begin_lib(dropt)
@@ -31,6 +26,9 @@ fips_begin_lib(dropt)
             include/droptxx.hpp
         )
     endif()
+    if (FIPS_CLANG OR FIPS_GCC)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-missing-field-initializers")
+    endif()
 fips_end_lib()
 
 if (NOT FIPS_IMPORT)
@@ -41,9 +39,6 @@ if (NOT FIPS_IMPORT)
         )
         fips_deps(dropt)
         fips_vs_disable_warnings(4477)
-        if (FIPS_CLANG OR FIPS_GCC)
-            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-missing-field-initializers")
-        endif()
     fips_end_app()
 
     fips_begin_app(dropt_example cmdline)
